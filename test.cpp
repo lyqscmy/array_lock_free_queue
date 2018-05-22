@@ -4,7 +4,6 @@
 #include <chrono>
 #include <iostream>
 #include <thread>
-using std::cout;
 
 void test_push() {
   ArrayLockFreeQueue<int, 3> q;
@@ -53,7 +52,7 @@ void test_in_searil() {
 void test_in_multithreads() {
   ArrayLockFreeQueue<int, 31> q;
 
-  constexpr int size = 100;
+  constexpr int size = 200;
   std::atomic<int> pushsum(0);
   std::thread writer1([&]() {
     for (int i = 0; i < size; i += 2) {

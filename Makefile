@@ -1,7 +1,7 @@
 src = $(wildcard *.cpp)
 
 CXX = g++
-CFLAGS = -Wall  -std=c++11
+CFLAGS = -Wall -O2 -std=c++11
 LDFLAGS = -lpthread
 
 all: prog
@@ -14,4 +14,4 @@ check: prog
 
 .PHONY: all clean
 clean:
-	rm -f  prog
+	rm -f prog
