@@ -33,7 +33,8 @@ public:
 
     while (!std::atomic_compare_exchange_weak(
         &maximumReadIndex, &currentWriteIndex, newWriteInex)) {
-      // when producers more than the cores, yield is need to avoid spinlock.
+      // the commit step should be order between threads
+      // so when producers more than the cores, yield is needed to avoid spinlock.
       sched_yield();
     }
 
