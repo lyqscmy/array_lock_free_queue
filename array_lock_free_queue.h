@@ -6,7 +6,7 @@
 #include <sched.h>
 
 // MAX_SIZE must be (power of 2) -1
-template <typename T, uint32_t MAX_SIZE = 3> class ArrayLockFreeQueue {
+template <typename T, uint32_t MAX_SIZE = 31> class ArrayLockFreeQueue {
 public:
   ArrayLockFreeQueue() : writeIndex(0), readIndex(0), maximumReadIndex(0) {}
   ~ArrayLockFreeQueue() {}
@@ -54,11 +54,11 @@ public:
         return false;
       }
 
-      // this read will not overwrite the item in data
+      // this read will not drop the item in data
       item = data[currentReadIndex];
 
       newReadIndex = (currentReadIndex + 1) & sizeMask;
-      // if cas fail, it means that the item is consumed by other thread.
+      // if cas fail, it means that this item is consumed by other consumer.
       if (std::atomic_compare_exchange_weak(&readIndex, &currentReadIndex,
                                             newReadIndex)) {
         return true;

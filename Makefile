@@ -1,7 +1,7 @@
 src = $(wildcard *.cpp)
 
 CXX = g++
-CFLAGS = -Wall -O2 -std=c++11
+CFLAGS = -Wall  -std=c++11
 LDFLAGS = -lpthread
 
 all: prog
